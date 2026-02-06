@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI 簡報｜專案報告頁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #141a2b;
+      --accent: #f5c15c;
+      --accent-soft: rgba(245, 193, 92, 0.12);
+      --text-main: #f5f5f7;
+      --text-sub: #a4a8b8;
+      --border-soft: #262b3b;
+      --card-radius: 18px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1b2340 0, #050712 55%, #02030a 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* 頂部導覽列 */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to bottom, rgba(5, 7, 18, 0.92), rgba(5, 7, 18, 0.7), transparent);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .nav {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 20% 0, #ffe9b3, #f5c15c 40%, #f08b3b 80%);
+      box-shadow: 0 0 24px rgba(245, 193, 92, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #2b1a05;
+    }
+
+    .nav-title {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav-title-main {
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #f7f2e8;
+    }
+
+    .nav-title-sub {
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #f5c15c, #f08b3b);
+      border-radius: 999px;
+      transition: width 0.22s ease-out;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* 主容器 */
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+    }
+
+    /* Hero 區塊 */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 26px;
+      margin-top: 10px;
+      margin-bottom: 32px;
+      align-items: center;
+    }
+
+    .hero-left {
+      padding: 22px 22px 24px;
+      border-radius: 24px;
+      background: radial-gradient(circle at top left, rgba(245, 193, 92, 0.18), transparent 55%),
+                  linear-gradient(135deg, rgba(20, 26, 43, 0.96), rgba(7, 9, 20, 0.98));
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(5, 7, 18, 0.7);
+      border: 1px solid rgba(245, 193, 92, 0.4);
+      font-size: 11px;
+      color: var(--text-sub);
+      margin-bottom: 14px;
+    }
+
+    .hero-pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #ffe9b3, #f5c15c);
+      box-shadow: 0 0 10px rgba(245, 193, 92, 0.9);
+    }
+
+    .hero-title {
+      font-size: 28px;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, #ffe9b3, #f5c15c, #f08b3b);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 13px;
+      color: var(--text-sub);
+      max-width: 460px;
+      margin-bottom: 18px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--text-sub);
+      margin-bottom: 18px;
+    }
+
+    .hero-meta-item {
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(10, 14, 30, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .btn-primary {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      background: linear-gradient(120deg, #f5c15c, #f08b3b);
+      color: #2b1a05;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-secondary {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(5, 7, 18, 0.9);
+      color: var(--text-main);
+      cursor: pointer;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-footnote {
+      font-size: 11px;
+      color: var(--text-sub);
+      opacity: 0.9;
+    }
+
+    .hero-right {
+      padding: 18px 16px 16px;
+      border-radius: 22px;
+      background: radial-gradient(circle at top, rgba(245, 193, 92, 0.16), transparent 60%),
+                  linear-gradient(145deg, #090c18, #151a2b);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-right-title {
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hero-right-title span {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(5, 7, 18, 0.9);
+      border: 1px solid rgba(245, 193, 92, 0.4);
+      color: var(--accent);
+    }
+
+    .hero-right-card {
+      border-radius: 16px;
+      background: rgba(5, 7, 18, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 10px 10px 12px;
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .hero-right-card strong {
+      color: var(--text-main);
+    }
+
+    /* 區塊標題 */
+    .section {
+      margin-bottom: 32px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #f7f2e8;
+    }
+
+    .section-subtitle {
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    /* PDF 區塊 */
+    .pdf-card {
+      border-radius: var(--card-radius);
+      background: linear-gradient(135deg, rgba(20, 26, 43, 0.96), rgba(7, 9, 20, 0.98));
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow-soft);
+      padding: 14px 14px 16px;
+    }
+
+    .pdf-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .pdf-meta-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .pdf-meta-title {
+      font-size: 13px;
+      color: var(--text-main);
+    }
+
+    .pdf-meta-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 11px;
+    }
+
+    .pdf-tag {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(10, 14, 30, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .pdf-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .pdf-embed-wrapper {
+      margin-top: 10px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: #050712;
+      height: 420px;
+    }
+
+    .pdf-embed-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* 圖片區塊 */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .gallery-item {
+      border-radius: 16px;
+      background: linear-gradient(145deg, #090c18, #151a2b);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gallery-thumb {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .gallery-body {
+      padding: 8px 10px 10px;
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .gallery-title {
+      font-size: 12px;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    /* 跳頁／章節區塊 */
+    .chapters {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .chapter-list {
+      border-radius: var(--card-radius);
+      background: linear-gradient(135deg, rgba(20, 26, 43, 0.96), rgba(7, 9, 20, 0.98));
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow-soft);
+      padding: 12px 12px 10px;
+      font-size: 12px;
+    }
+
+    .chapter-item {
+      padding: 8px 8px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      color: var(--text-sub);
+      transition: background 0.18s ease-out, color 0.18s ease-out;
+    }
+
+    .chapter-item:hover {
+      background: rgba(245, 193, 92, 0.08);
+      color: var(--text-main);
+    }
+
+    .chapter-item span {
+      font-size: 11px;
+      opacity: 0.8;
+    }
+
+    .chapter-content {
+      border-radius: var(--card-radius);
+      background: rgba(5, 7, 18, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px 14px;
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .chapter-content h4 {
+      font-size: 13px;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .chapter-content p + p {
+      margin-top: 6px;
+    }
+
+    /* 頁腳 */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 14px 20px 24px;
+      font-size: 11px;
+      color: var(--text-sub);
+      text-align: center;
+      background: radial-gradient(circle at bottom, rgba(245, 193, 92, 0.12), transparent 55%);
+    }
+
+    /* RWD */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .chapters {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .gallery-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .pdf-embed-wrapper {
+        height: 320px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 導覽列 -->
+  <header>
+    <div class="nav">
+      <div class="nav-left">
+        <div class="nav-logo">AI</div>
+        <div class="nav-title">
+          <div class="nav-title-main">AI BRIEFING</div>
+          <div class="nav-title-sub">自動生成簡報｜內部專案報告</div>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="#pdf">PDF 簡報</a>
+        <a href="#gallery">重點圖片</a>
+        <a href="#chapters">章節導覽</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <!-- Hero 區 -->
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-pill">
+          <div class="hero-pill-dot"></div>
+          <span>AI Generated Briefing · Internal Use</span>
+        </div>
+        <h1 class="hero-title">
+          <span>AI 簡報總覽</span>｜專案說明與決策重點
+        </h1>
+        <p class="hero-subtitle">
+          本頁整合 AI 生成簡報 PDF、關鍵圖片與章節導覽，提供管理層與團隊快速掌握決策重點。
+        </p>
+        <div class="hero-meta">
+          <div class="hero-meta-item">版本：v1.0</div>
+          <div class="hero-meta-item">產出工具：ChatGPT / 其他</div>
+          <div class="hero-meta-item">用途：內部簡報／決策會議</div>
+        </div>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="document.getElementById('pdf').scrollIntoView({behavior:'smooth'})">
+            查看 PDF 簡報
+          </button>
+          <button class="btn-secondary" onclick="document.getElementById('chapters').scrollIntoView({behavior:'smooth'})">
+            跳至章節導覽
+          </button>
+        </div>
+        <div class="hero-footnote">
+          建議搭配實體口頭說明使用，本頁作為「視覺化簡報載體」與「會後查閱入口」。
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-right-title">
+          <span>AI 簡報摘要</span>
+        </div>
+        <div class="hero-right-card">
+          <p><strong>簡報主題：</strong>在此放你的專案名稱，例如「2025 Q1 產品策略調整」</p>
+          <p><strong>核心問題：</strong>一句話說明這份簡報要回答的關鍵問題。</p>
+          <p><strong>AI 角色：</strong>說明 AI 在這份簡報中的定位（例如：草稿生成、架構整理、視覺輔助）。</p>
+          <p><strong>閱讀建議：</strong>先看 PDF，再依需要查看圖片與章節摘要。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PDF 區 -->
+    <section id="pdf" class="section">
+      <div class="section-header">
+        <h2 class="section-title">PDF 簡報</h2>
+        <p class="section-subtitle">完整 AI 生成簡報檔案，可直接瀏覽或下載。</p>
+      </div>
+
+      <div class="pdf-card">
+        <div class="pdf-meta">
+          <div class="pdf-meta-left">
+            <div class="pdf-meta-title">AI 簡報主檔</div>
+            <div class="pdf-meta-tags">
+              <span class="pdf-tag">PDF</span>
+              <span class="pdf-tag">AI 生成</span>
+              <span class="pdf-tag">內部使用</span>
+            </div>
+          </div>
+          <div class="pdf-actions">
+            <!-- TODO: 改成你的實際 PDF 連結 -->
+            <a href="your-presentation.pdf" target="_blank" class="btn-secondary">在新分頁開啟</a>
+          </div>
+        </div>
+
+        <div class="pdf-embed-wrapper">
+          <!-- TODO: 改成你的實際 PDF 連結 -->
+          <iframe src="your-presentation.pdf"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- 圖片區 -->
+    <section id="gallery" class="section">
+      <div class="section-header">
+        <h2 class="section-title">重點圖片</h2>
+        <p class="section-subtitle">挑出幾張最關鍵的頁面或圖表，作為快速理解入口。</p>
+      </div>
+
+      <div class="gallery-grid">
+        <!-- 圖片 1 -->
+        <a class="gallery-item" href="img/slide-01.png" target="_blank">
+          <div class="gallery-thumb" style="background-image:url('img/slide-01.png');"></div>
+          <div class="gallery-body">
+            <div class="gallery-title">總覽頁｜專案背景與目標</div>
+            <p>用一句話說明這張圖的重點，例如：本專案聚焦於提升轉換率與留存率。</p>
+          </div>
+        </a>
+
+        <!-- 圖片 2 -->
+        <a class="gallery-item" href="img/slide-02.png" target="_blank">
+          <div class="gallery-thumb" style="background-image:url('img/slide-02.png');"></div>
+          <div class="gallery-body">
+            <div class="gallery-title">關鍵數據｜現況診斷</div>
+            <p>說明這張圖表呈現的核心數據與結論。</p>
+          </div>
+        </a>
+
+        <!-- 圖片 3 -->
+        <a class="gallery-item" href="img/slide-03.png" target="_blank">
+          <div class="gallery-thumb" style="background-image:url('img/slide-03.png');"></div>
+          <div class="gallery-body">
+            <div class="gallery-title">策略路線圖｜未來 3–6 個月</div>
+            <p>簡短描述策略階段與時間軸，讓管理層一眼看懂節奏。</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 章節／跳頁區 -->
+    <section id="chapters" class="section">
+      <div class="section-header">
+        <h2 class="section-title">章節導覽</h2>
+        <p class="section-subtitle">用「章節＋摘要」的方式模擬簡報翻頁，搭配 PDF 或圖片閱讀。</p>
+      </div>
+
+      <div class="chapters">
+        <div class="chapter-list">
+          <!-- 這裡的 href 可以指向 PDF 特定頁的連結（如果你有），或是外部頁面 -->
+          <a class="chapter-item" href="#pdf">
+            <div>
+              <strong>Chapter 1｜專案背景與目標</strong>
+              <div>背景、痛點、目標定義</div>
+            </div>
+            <span>01</span>
+          </a>
+
+          <a class="chapter-item" href="#gallery">
+            <div>
+              <strong>Chapter 2｜現況數據與問題診斷</strong>
+              <div>關鍵指標、瓶頸分析</div>
+            </div>
+            <span>02</span>
+          </a>
+
+          <a class="chapter-item" href="#gallery">
+            <div>
+              <strong>Chapter 3｜策略方向與執行路線</strong>
+              <div>策略架構、優先順序、時間軸</div>
+            </div>
+            <span>03</span>
+          </a>
+
+          <a class="chapter-item" href="#pdf">
+            <div>
+              <strong>Chapter 4｜風險、限制與後續觀察</strong>
+              <div>風險控管、假設前提、追蹤指標</div>
+            </div>
+            <span>04</span>
+          </a>
+        </div>
+
+        <div class="chapter-content">
+          <h4>閱讀建議與使用方式</h4>
+          <p>1. 若是第一次接觸本專案，建議先從「PDF 簡報」完整瀏覽一遍，建立全貌。</p>
+          <p>2. 若是決策會議中使用，可搭配「章節導覽」快速跳到對應內容，節省翻找時間。</p>
+          <p>3. 會後若只想回顧重點，可直接看「重點圖片」與本區摘要文字。</p>
+          <p>4. 若 AI 之後再產出新版本簡報，可保留此頁架構，只更新 PDF 與圖片連結。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    AI 簡報頁模板 · 可依專案名稱、品牌色與實際內容自由調整
+  </footer>
+</body>
+</html>
