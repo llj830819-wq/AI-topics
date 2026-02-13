@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30-Day AI Learning Plan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .progress-container {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .progress-bar {
+            background: #e9ecef;
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .week {
+            margin-bottom: 40px;
+            border-left: 4px solid #667eea;
+            padding-left: 20px;
+        }
+        
+        .week-header {
+            font-size: 1.5em;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .week-theme {
+            font-size: 1em;
+            color: #6c757d;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .task {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            display: flex;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+        }
+        
+        .task:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .task.completed {
+            background: #d4edda;
+            opacity: 0.7;
+        }
+        
+        .task input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            margin-top: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        
+        .task-content {
+            flex: 1;
+        }
+        
+        .task-title {
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 5px;
+        }
+        
+        .task.completed .task-title {
+            text-decoration: line-through;
+        }
+        
+        .task-details {
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        
+        .resources {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .resources h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+        
+        .resources ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .resources li {
+            padding: 8px 0;
+            color: #856404;
+        }
+        
+        .resources li:before {
+            content: "→ ";
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .tips {
+            background: #d1ecf1;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .tips h3 {
+            color: #0c5460;
+            margin-bottom: 15px;
+        }
+        
+        .tips ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .tips li {
+            padding: 8px 0;
+            color: #0c5460;
+        }
+        
+        .tips li:before {
+            content: "💡 ";
+            margin-right: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .week {
+                padding-left: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 30-Day AI Learning Journey</h1>
+            <p>From Basics to Building AI Applications</p>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill">0%</div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- Week 1 -->
+            <div class="week">
+                <div class="week-header">Week 1: Understanding AI Fundamentals</div>
+                <div class="week-theme">Build your conceptual foundation</div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 1-2: What is AI, ML, and Deep Learning?</div>
+                        <div class="task-details">Watch 3Blue1Brown's "But what is a neural network?" video. Read Andrew Ng's intro to AI. Write a one-page summary in your own words.</div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 3: Explore Real-World AI Applications</div>
+                        <div class="task-details">Research 5 AI use cases across different industries (healthcare, finance, entertainment, etc.). Create a mind map of how AI is being used today.</div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 4-5: Master Prompt Engineering</div>
+                        <div class="task-details">Spend 2 hours practicing with ChatGPT/Claude. Learn techniques: be specific, use examples, iterate, chain prompts. Document 10 effective prompts you created.</div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 6: AI Ethics & Limitations</div>
+                        <div class="task-details">Read about AI bias, hallucinations, and ethical concerns. Write reflections on responsible AI use.</div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 7: Week 1 Review & Project</div>
+                        <div class="task-details">Create a presentation or blog post explaining AI to a non-technical friend. This consolidates your learning.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Week 2 -->
+            <div class="week">
+                <div class="week-header">Week 2: Mastering AI Tools</div>
+                <div class="week-theme">Become power user of AI assistants</div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 8-9: Advanced ChatGPT/Claude Techniques</div>
+                        <div class="task-details">Learn: custom instructions, code interpreter, document analysis, multimodal capabilities. Complete 5 real tasks using these features.</div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 10: Explore Specialized AI Tools</div>
+                        <div class="task-details">Try 3 tools: Midjourney/DALL-E (images), ElevenLabs (voice), Runway (video). Create one output with each.</div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 11-12: AI for Productivity</div>
+                        <div class="task-details">Learn to use AI for: email writing, research, summarization, brainstorming. Create templates for your common tasks.</div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 13: AI APIs & Integration</div>
+                        <div class="task-details">Read OpenAI and Anthropic API documentation. Understand concepts: tokens, temperature, system prompts. No coding yet—just understand the concepts.</div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 14: Week 2 Mini-Project</div>
+                        <div class="task-details">Use AI to solve a real problem in your life: automate a workflow, research a topic, create content. Document the process.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Week 3 -->
+            <div class="week">
+                <div class="week-header">Week 3: Machine Learning Fundamentals</div>
+                <div class="week-theme">Understanding how AI learns</div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 15-16: Supervised vs Unsupervised Learning</div>
+                        <div class="task-details">Learn the difference between supervised, unsupervised, and reinforcement learning. Study examples: classification, regression, clustering.</div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 17: Training Data & Models</div>
+                        <div class="task-details">Understand: training data, validation, testing, overfitting, underfitting. Watch StatQuest videos on these topics.</div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 18-19: Neural Networks Deep Dive</div>
+                        <div class="task-details">Learn architecture: layers, neurons, weights, biases, activation functions. Use TensorFlow Playground to experiment visually.</div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 20: Large Language Models (LLMs)</div>
+                        <div class="task-details">Study how ChatGPT works: transformers, attention mechanism, pre-training vs fine-tuning. Read Jay Alammar's illustrated guides.</div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 21: Week 3 Knowledge Check</div>
+                        <div class="task-details">Create flashcards for all ML concepts. Teach someone (or write as if teaching) about how neural networks learn.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Week 4 -->
+            <div class="week">
+                <div class="week-header">Week 4: Building AI Applications</div>
+                <div class="week-theme">From theory to practice</div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 22-23: Python Basics for AI</div>
+                        <div class="task-details">If new to Python: learn variables, functions, lists, dictionaries. Complete Python tutorial on Codecademy or DataCamp (3-4 hours).</div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 24-25: First AI API Project</div>
+                        <div class="task-details">Build a simple chatbot using OpenAI or Anthropic API. Follow official quickstart guides. Get it working end-to-end.</div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 26: Experiment with Prompts Programmatically</div>
+                        <div class="task-details">Modify your chatbot to test different system prompts, temperatures, and parameters. Document what works best for different tasks.</div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 27-28: Build Something Useful</div>
+                        <div class="task-details">Create an AI tool that solves a real problem: document summarizer, email classifier, Q&A system, content generator, etc.</div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 29: Learn About Fine-tuning & RAG</div>
+                        <div class="task-details">Research: when to fine-tune vs use RAG (Retrieval Augmented Generation). Understand vector databases and embeddings conceptually.</div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <input type="checkbox" onchange="updateProgress()">
+                    <div class="task-content">
+                        <div class="task-title">Day 30: Final Project & Next Steps</div>
+                        <div class="task-details">Polish your Week 4 project. Share it online (GitHub, blog, LinkedIn). Create your 60-day learning plan to continue the journey.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Resources Section -->
+            <div class="resources">
+                <h3>📚 Essential Resources</h3>
+                <ul>
+                    <li><strong>Videos:</strong> 3Blue1Brown (Neural Networks), StatQuest (ML basics), Andrej Karpathy (Deep Learning)</li>
+                    <li><strong>Interactive:</strong> TensorFlow Playground, Google's Teachable Machine, OpenAI Playground</li>
+                    <li><strong>Reading:</strong> Jay Alammar's blog (illustrated guides), Anthropic's Claude documentation, OpenAI docs</li>
+                    <li><strong>Practice:</strong> Kaggle Learn (free courses), Google Colab (free Python notebooks), HuggingFace tutorials</li>
+                    <li><strong>Communities:</strong> r/MachineLearning, r/ChatGPT, AI Discord servers, local AI meetups</li>
+                </ul>
+            </div>
+            
+            <!-- Tips Section -->
+            <div class="tips">
+                <h3>🎯 Success Tips</h3>
+                <ul>
+                    <li><strong>Learn by doing:</strong> Don't just watch/read—experiment immediately with what you learn</li>
+                    <li><strong>Document everything:</strong> Keep a learning journal. Write code comments. Create a portfolio.</li>
+                    <li><strong>Join communities:</strong> Ask questions, share progress, learn from others' projects</li>
+                    <li><strong>Build daily habits:</strong> Even 30 minutes of focused learning compounds over time</li>
+                    <li><strong>Don't get stuck:</strong> If something is too hard, skip it and come back later. Progress > perfection.</li>
+                    <li><strong>Apply immediately:</strong> Use AI in your daily work/life as you learn. This creates motivation and retention.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const totalTasks = checkboxes.length;
+            let completedTasks = 0;
+            
+            checkboxes.forEach(checkbox => {
+                const task = checkbox.closest('.task');
+                if (checkbox.checked) {
+                    task.classList.add('completed');
+                    completedTasks++;
+                } else {
+                    task.classList.remove('completed');
+                }
+            });
+            
+            const percentage = Math.round((completedTasks / totalTasks) * 100);
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = percentage + '%';
+            progressFill.textContent = percentage + '% Complete';
+            
+            // Save progress to localStorage
+            const checkboxStates = Array.from(checkboxes).map(cb => cb.checked);
+            localStorage.setItem('aiLearningProgress', JSON.stringify(checkboxStates));
+        }
+        
+        // Load progress on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedProgress = localStorage.getItem('aiLearningProgress');
+            if (savedProgress) {
+                const checkboxStates = JSON.parse(savedProgress);
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach((checkbox, index) => {
+                    if (checkboxStates[index]) {
+                        checkbox.checked = true;
+                    }
+                });
+                updateProgress();
+            }
+        });
+    </script>
+</body>
+</html>
